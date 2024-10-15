@@ -1,5 +1,4 @@
 import json
-import logging
 import re
 import os
 
@@ -9,13 +8,11 @@ from transmission_rpc import Client
 
 TV_SHOWS_FOLDER = "/mnt/media/Shows"
 CACHED_EPISODE = "cached.json"
-LOG_FILE = "torrent_updater.log"
 HOST = "192.168.1.204"
 USERNAME = os.environ["TRANSMISSION_USERNAME"]
 PASSWORD = os.environ["TRANSMISSION_PASSWORD"]
 TMDB_API_KEY = os.environ["TMDB_API_KEY"]
 
-logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG)
 tmdb = TMDb()
 tmdb.api_key = TMDB_API_KEY
 search = Search(tmdb)
@@ -63,7 +60,6 @@ def find_torrent(episode):
         if regex.search(torrent.title)
     ]
     if len(torrents) > 0:
-        logging.log(msg=f"Found {search_term} hdr 2160p", level=7)
         return torrents[0]
 
     torrents = [
@@ -72,7 +68,6 @@ def find_torrent(episode):
         if regex.search(torrent.title)
     ]
     if len(torrents) > 0:
-        logging.log(msg=f"Found {search_term} 2160p", level=7)
         return torrents[0]
 
     torrents = [
@@ -81,7 +76,6 @@ def find_torrent(episode):
         if regex.search(torrent.title)
     ]
     if len(torrents) > 0:
-        logging.log(msg=f"Found {search_term} 1080p", level=7)
         return torrents[0]
 
 
