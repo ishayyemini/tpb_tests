@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<episodedetails>
+  <plot>With enemies closing in, the coven flees under the light of a blood moon to the next ghastly trial.</plot>
+  <lockdata>false</lockdata>
+  <dateadded>2024-10-11 20:31:39</dateadded>
+  <title>Darkest Hour / Wake Thy Power</title>
+  <director>Rachel Goldberg</director>
+  <writer>Laura Monti</writer>
+  <credits>Laura Monti</credits>
+  <rating>6.2</rating>
+  <year>2024</year>
+  <imdbid>tt32368801</imdbid>
+  <tvdbid>10495656</tvdbid>
+  <runtime>30</runtime>
+  <genre>Action</genre>
+  <genre>Adventure</genre>
+  <genre>Comedy</genre>
+  <art>
+    <poster>/var/db/jellyfin/metadata/library/d1/d11e4a787a7b218d04782e15b564381f/poster.jpg</poster>
+  </art>
+  <actor>
+    <name>Kathryn Hahn</name>
+    <role>Agnes O'Connor / Agatha Harkness</role>
+    <type>Actor</type>
+    <sortorder>0</sortorder>
+    <thumb>/var/db/jellyfin/metadata/People/K/Kathryn Hahn/folder.jpg</thumb>
+  </actor>
+  <actor>
+    <name>Joe Locke</name>
+    <role>Teen</role>
+    <type>Actor</type>
+    <sortorder>1</sortorder>
+    <thumb>/var/db/jellyfin/metadata/People/J/Joe Locke/folder.jpg</thumb>
+  </actor>
+  <actor>
+    <name>Sasheer Zamata</name>
+    <role>Jennifer Kale</role>
+    <type>Actor</type>
+    <sortorder>2</sortorder>
+    <thumb>/var/db/jellyfin/metadata/People/S/Sasheer Zamata/folder.jpg</thumb>
+  </actor>
+  <actor>
+    <name>Ali Ahn</name>
+    <role>Alice Wu-Gulliver</role>
+    <type>Actor</type>
+    <sortorder>3</sortorder>
+    <thumb>/var/db/jellyfin/metadata/People/A/Ali Ahn/folder.jpg</thumb>
+  </actor>
+  <actor>
+    <name>Okwui Okpokwasili</name>
+    <role>Salem Seven / Vertigo</role>
+    <type>Actor</type>
+    <sortorder>4</sortorder>
+    <thumb>/var/db/jellyfin/metadata/People/O/Okwui Okpokwasili/folder.jpg</thumb>
+  </actor>
+  <actor>
+    <name>Patti LuPone</name>
+    <role>Lilia Calderu</role>
+    <type>Actor</type>
+    <sortorder>5</sortorder>
+    <thumb>/var/db/jellyfin/metadata/People/P/Patti LuPone/folder.jpg</thumb>
+  </actor>
+  <actor>
+    <name>Aubrey Plaza</name>
+    <role>Rio Vidal</role>
+    <type>Actor</type>
+    <sortorder>6</sortorder>
+    <thumb>/var/db/jellyfin/metadata/People/A/Aubrey Plaza/folder.jpg</thumb>
+  </actor>
+  <actor>
+    <name>Chau Naumova</name>
+    <role>Salem Seven / Coyote</role>
+    <type>GuestStar</type>
+    <sortorder>507</sortorder>
+  </actor>
+  <actor>
+    <name>Bethany Curry</name>
+    <role>Salem Seven / Crow</role>
+    <type>GuestStar</type>
+    <sortorder>508</sortorder>
+  </actor>
+  <actor>
+    <name>Athena Perample</name>
+    <role>Salem Seven / Fox</role>
+    <type>GuestStar</type>
+    <sortorder>509</sortorder>
+  </actor>
+  <actor>
+    <name>Alicia Vela-Bailey</name>
+    <role>Salem Seven / Owl</role>
+    <type>GuestStar</type>
+    <sortorder>510</sortorder>
+  </actor>
+  <actor>
+    <name>Britta Grant</name>
+    <role>Salem Seven / Rat</role>
+    <type>GuestStar</type>
+    <sortorder>511</sortorder>
+  </actor>
+  <actor>
+    <name>Marina Mazepa</name>
+    <role>Salem Seven / Snake</role>
+    <type>GuestStar</type>
+    <sortorder>512</sortorder>
+  </actor>
+  <actor>
+    <name>Kate Forbes</name>
+    <role>Evanora Harkness</role>
+    <type>GuestStar</type>
+    <sortorder>519</sortorder>
+  </actor>
+  <showtitle>Agatha All Along</showtitle>
+  <episode>5</episode>
+  <season>1</season>
+  <aired>2024-10-09</aired>
+  <fileinfo>
+    <streamdetails>
+      <video>
+        <codec>hevc</codec>
+        <micodec>hevc</micodec>
+        <bitrate>14090958</bitrate>
+        <width>3840</width>
+        <height>2160</height>
+        <aspect>16:9</aspect>
+        <aspectratio>16:9</aspectratio>
+        <framerate>24</framerate>
+        <language>eng</language>
+        <scantype>progressive</scantype>
+        <default>True</default>
+        <forced>False</forced>
+        <duration>29</duration>
+        <durationinseconds>1798</durationinseconds>
+      </video>
+      <audio>
+        <codec>eac3</codec>
+        <micodec>eac3</micodec>
+        <bitrate>256000</bitrate>
+        <language>ita</language>
+        <scantype>progressive</scantype>
+        <channels>6</channels>
+        <samplingrate>48000</samplingrate>
+        <default>True</default>
+        <forced>False</forced>
+      </audio>
+      <audio>
+        <codec>eac3</codec>
+        <micodec>eac3</micodec>
+        <bitrate>768000</bitrate>
+        <language>eng</language>
+        <scantype>progressive</scantype>
+        <channels>6</channels>
+        <samplingrate>48000</samplingrate>
+        <default>True</default>
+        <forced>False</forced>
+      </audio>
+      <subtitle>
+        <codec>subrip</codec>
+        <micodec>subrip</micodec>
+        <width>0</width>
+        <height>0</height>
+        <language>ita</language>
+        <scantype>progressive</scantype>
+        <default>True</default>
+        <forced>True</forced>
+      </subtitle>
+      <subtitle>
+        <codec>subrip</codec>
+        <micodec>subrip</micodec>
+        <width>0</width>
+        <height>0</height>
+        <language>eng</language>
+        <scantype>progressive</scantype>
+        <default>False</default>
+        <forced>False</forced>
+      </subtitle>
+      <subtitle>
+        <codec>subrip</codec>
+        <micodec>subrip</micodec>
+        <width>0</width>
+        <height>0</height>
+        <language>eng</language>
+        <scantype>progressive</scantype>
+        <default>False</default>
+        <forced>False</forced>
+      </subtitle>
+      <subtitle>
+        <codec>subrip</codec>
+        <micodec>subrip</micodec>
+        <width>0</width>
+        <height>0</height>
+        <language>ita</language>
+        <scantype>progressive</scantype>
+        <default>False</default>
+        <forced>False</forced>
+      </subtitle>
+    </streamdetails>
+  </fileinfo>
+</episodedetails>

@@ -1,0 +1,1 @@
+Auto download torrents when new episodes are available.
