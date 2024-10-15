@@ -1,9 +1,11 @@
 import json
 import logging
+import re
+import os
+
 from tmdbv3api import TMDb, Search, TV
 from tpblite import TPB
 from transmission_rpc import Client
-import os
 
 TV_SHOWS_FOLDER = "/mnt/media/Shows"
 CACHED_EPISODE = "cached.json"
@@ -43,6 +45,7 @@ def update_cached_episode(show):
     episode = {
         "season_number": next_episode["season_number"],
         "episode_number": next_episode["episode_number"],
+        "air_date": next_episode["air_date"],
         "show": show,
     }
     with open(f"{TV_SHOWS_FOLDER}/{show}/{CACHED_EPISODE}", "w") as openfile:
@@ -52,15 +55,31 @@ def update_cached_episode(show):
 
 def find_torrent(episode):
     search_term = f"{episode['show']} S{str(episode['season_number']).zfill(2)}E{str(episode['episode_number']).zfill(2)}"
-    torrents = tpb.search(search_term + " hdr 2160p")
+    regex = re.compile("^" + episode["show"].replace(" ", "[. ]"), re.IGNORECASE)
+
+    torrents = [
+        torrent
+        for torrent in tpb.search(search_term + " hdr 2160p")
+        if regex.search(torrent.title)
+    ]
     if len(torrents) > 0:
         logging.log(msg=f"Found {search_term} hdr 2160p", level=7)
         return torrents[0]
-    torrents = tpb.search(search_term + " 2160p")
+
+    torrents = [
+        torrent
+        for torrent in tpb.search(search_term + " 2160p")
+        if regex.search(torrent.title)
+    ]
     if len(torrents) > 0:
         logging.log(msg=f"Found {search_term} 2160p", level=7)
         return torrents[0]
-    torrents = tpb.search(search_term + " 1080p")
+
+    torrents = [
+        torrent
+        for torrent in tpb.search(search_term + " 1080p")
+        if regex.search(torrent.title)
+    ]
     if len(torrents) > 0:
         logging.log(msg=f"Found {search_term} 1080p", level=7)
         return torrents[0]
