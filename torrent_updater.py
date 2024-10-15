@@ -39,8 +39,8 @@ def update_cached_episode(show):
     show_id = search.tv_shows(show)[0].id
     next_episode = tv.details(show_id).next_episode_to_air
     episode = {
-        "season_number": next_episode.season_number,
-        "episode_number": next_episode.episode_number,
+        "season_number": next_episode["season_number"],
+        "episode_number": next_episode["episode_number"],
         "show": show,
     }
     with open(f"{TV_SHOWS_FOLDER}/{show}/{CACHED_EPISODE}", "w") as openfile:
