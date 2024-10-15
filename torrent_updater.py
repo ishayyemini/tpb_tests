@@ -38,6 +38,8 @@ def get_cached_episode(show):
 def update_cached_episode(show):
     show_id = search.tv_shows(show)[0].id
     next_episode = tv.details(show_id).next_episode_to_air
+    if next_episode is None:
+        return
     episode = {
         "season_number": next_episode["season_number"],
         "episode_number": next_episode["episode_number"],
@@ -81,5 +83,5 @@ if __name__ == "__main__":
 
     for show in show_names:
         episode = get_cached_episode(show)
-        if download_torrent(episode):
+        if episode is not None and download_torrent(episode):
             update_cached_episode(show)
