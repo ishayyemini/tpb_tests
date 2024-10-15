@@ -13,18 +13,13 @@ USERNAME = os.environ["TRANSMISSION_USERNAME"]
 PASSWORD = os.environ["TRANSMISSION_PASSWORD"]
 TMDB_API_KEY = os.environ["TMDB_API_KEY"]
 
+logging.basicConfig(filename=LOG_FILE, level=logging.DEBUG)
 tmdb = TMDb()
 tmdb.api_key = TMDB_API_KEY
 search = Search(tmdb)
 tv = TV(tmdb)
 tpb = TPB()
 transmission = Client(host=HOST, port=9091, username=USERNAME, password=PASSWORD)
-
-logger = logging.getLogger("torrent_updater")
-logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler(LOG_FILE)
-fh.setLevel(logging.DEBUG)
-logger.addHandler(fh)
 
 
 def get_shows_from_folder():
@@ -57,15 +52,15 @@ def find_torrent(episode):
     search_term = f"{episode['show']} S{str(episode['season_number']).zfill(2)}E{str(episode['episode_number']).zfill(2)}"
     torrents = tpb.search(search_term + " hdr 2160p")
     if len(torrents) > 0:
-        logger.log(msg=f"found {search_term} hdr 2160p", level=1)
+        logging.log(msg=f"Found {search_term} hdr 2160p", level=7)
         return torrents[0]
     torrents = tpb.search(search_term + " 2160p")
     if len(torrents) > 0:
-        logger.log(msg=f"found {search_term} 2160p", level=1)
+        logging.log(msg=f"Found {search_term} 2160p", level=7)
         return torrents[0]
     torrents = tpb.search(search_term + " 1080p")
     if len(torrents) > 0:
-        logger.log(msg=f"found {search_term} 1080p", level=1)
+        logging.log(msg=f"Found {search_term} 1080p", level=7)
         return torrents[0]
 
 
