@@ -5,7 +5,7 @@ from tpblite import TPB
 from transmission_rpc import Client
 import os
 
-TV_SHOWS_FOLDER = "/Users/Ishay/Downloads/tests"
+TV_SHOWS_FOLDER = "/mnt/media/Shows"
 CACHED_EPISODE = "cached.json"
 LOG_FILE = "torrent_updater.log"
 HOST = "192.168.1.204"
