@@ -55,7 +55,7 @@ def update_cached_episode(show):
 
 def find_torrent(episode):
     search_term = f"{episode['show']} S{str(episode['season_number']).zfill(2)}E{str(episode['episode_number']).zfill(2)}"
-    regex = re.compile("^" + episode["show"].replace(" ", "[. ]"), re.IGNORECASE)
+    regex = re.compile("^" + search_term.replace(" ", "[. ]"), re.IGNORECASE)
 
     torrents = [
         torrent
