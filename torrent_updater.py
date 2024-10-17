@@ -75,6 +75,7 @@ def get_valid_torrent(episode, suffix):
         for torrent in tpb.search(f"{search_term} {suffix}")
         if ":" in torrent.upload_date.split(" ")[1]
         and torrent.upload_date.split(" ")[0] >= episode.premiere_date.strftime("%m-%d")
+        and (torrent.is_trusted or torrent.is_vip)
     ]
     if len(torrents) > 0:
         return torrents[0]
