@@ -1,6 +1,9 @@
 import os
-from datetime import date, timedelta
+import urllib.parse
+from datetime import date, timedelta, datetime
+import requests
 
+import xmltodict
 from jellyfin_api_client import AuthenticatedClient
 from jellyfin_api_client.api.items import get_items
 from jellyfin_api_client.api.tv_shows import get_episodes
@@ -14,6 +17,7 @@ TRANSMISSION_USERNAME = os.environ["TRANSMISSION_USERNAME"]
 TRANSMISSION_PASSWORD = os.environ["TRANSMISSION_PASSWORD"]
 JELLYFIN_SERVER = "http://192.168.1.206:8096"
 JELLYFIN_API_KEY = os.environ["JELLYFIN_API_KEY"]
+BT4G_SERVER = "https://bt4gprx.com/search"
 
 tpb = TPB()
 transmission = Client(
@@ -69,23 +73,40 @@ def find_torrent(episode):
 
 def get_valid_torrent(episode, suffix):
     parsed_show_name = episode.series_name.replace("'", "")
-    search_term = f"{parsed_show_name} S{str(episode.parent_index_number).zfill(2)}E{str(episode.index_number).zfill(2)}"
-    torrents = [
-        torrent
-        for torrent in tpb.search(f"{search_term} {suffix}")
+    search_term = f"{parsed_show_name} S{str(episode.parent_index_number).zfill(2)}E{str(episode.index_number).zfill(2)} {suffix}"
+
+    tpb_torrents = [
+        torrent.magnetlink
+        for torrent in tpb.search(search_term)
         if ":" in torrent.upload_date.split(" ")[1]
         and torrent.upload_date.split(" ")[0] >= episode.premiere_date.strftime("%m-%d")
         and (torrent.is_trusted or torrent.is_vip)
     ]
-    if len(torrents) > 0:
-        return torrents[0]
+    if len(tpb_torrents) > 0:
+        return tpb_torrents[0]
+
+    bt4g_result = requests.get(
+        f"{BT4G_SERVER}?{urllib.parse.urlencode({'q': search_term, 'page': 'rss'})}",
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+        },
+    )
+    bt4g_torrents = [
+        item["link"]
+        for item in xmltodict.parse(bt4g_result.text)["rss"]["channel"]["item"]
+        if "<br>Movie<br>" in item["description"]
+        and datetime.strptime(item["pubDate"], "%a,%d %b %Y %H:%M:%S %z").date()
+        >= episode.premiere_date.date()
+    ]
+    if len(bt4g_torrents) > 0:
+        return bt4g_torrents[0]
 
 
 def download_torrent(episode):
     torrent = find_torrent(episode)
     if torrent:
         transmission.add_torrent(
-            torrent.magnetlink,
+            torrent,
             download_dir=f"{TV_SHOWS_FOLDER}/{episode.series_name}/Season {episode.parent_index_number}",
         )
 
