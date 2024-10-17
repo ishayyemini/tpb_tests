@@ -1,13 +1,14 @@
 import os
 import urllib.parse
 from datetime import date, timedelta, datetime
+from typing import Optional
 import requests
 
 import xmltodict
 from jellyfin_api_client import AuthenticatedClient
 from jellyfin_api_client.api.items import get_items
 from jellyfin_api_client.api.tv_shows import get_episodes
-from jellyfin_api_client.models import ItemFields, BaseItemKind
+from jellyfin_api_client.models import ItemFields, BaseItemKind, BaseItemDto
 from tpblite import TPB
 from transmission_rpc import Client
 
@@ -33,7 +34,11 @@ jellyfin = AuthenticatedClient(
 )
 
 
-def get_episodes_from_jellyfin():
+def get_episodes_from_jellyfin() -> list[BaseItemDto]:
+    """
+    Queries Jellyfin API for missing episodes.
+    :return: List of missing episodes.
+    """
     missing_episodes = []
     shows = get_items.sync(
         client=jellyfin,
@@ -59,7 +64,12 @@ def get_episodes_from_jellyfin():
     return missing_episodes
 
 
-def find_torrent(episode):
+def find_torrent(episode: BaseItemDto) -> Optional[str]:
+    """
+    Calls :func:`get_valid_torrent` with some suffixes with video quality.
+    :param episode: Episode object returned from jellyfin.
+    :return: Magnet link.
+    """
     torrent = get_valid_torrent(episode, "hdr 2160p")
     if torrent:
         return torrent
@@ -71,7 +81,13 @@ def find_torrent(episode):
         return torrent
 
 
-def get_valid_torrent(episode, suffix):
+def get_valid_torrent(episode: BaseItemDto, suffix: str) -> Optional[str]:
+    """
+    Searches tpb and bt4g for valid torrents (actual videos) and returns a magnet link if found.
+    :param episode: Episode object returned from jellyfin.
+    :param suffix: What to append after the search term, e.g. "2160p hdr".
+    :return: Magnet link.
+    """
     parsed_show_name = episode.series_name.replace("'", "")
     search_term = f"{parsed_show_name} S{str(episode.parent_index_number).zfill(2)}E{str(episode.index_number).zfill(2)} {suffix}"
 
@@ -102,7 +118,11 @@ def get_valid_torrent(episode, suffix):
         return bt4g_torrents[0]
 
 
-def download_torrent(episode):
+def download_torrent(episode: BaseItemDto) -> None:
+    """
+    Calls :func:`find_torrent`, and if magnet link is found, pushes it to Transmission.
+    :param episode: Episode object returned from jellyfin.
+    """
     torrent = find_torrent(episode)
     if torrent:
         transmission.add_torrent(
