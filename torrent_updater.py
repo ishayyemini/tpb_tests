@@ -107,15 +107,17 @@ def get_valid_torrent(episode: BaseItemDto, suffix: str) -> Optional[str]:
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
         },
     )
-    bt4g_torrents = [
-        item["link"]
-        for item in xmltodict.parse(bt4g_result.text)["rss"]["channel"]["item"]
-        if "<br>Movie<br>" in item["description"]
-        and datetime.strptime(item["pubDate"], "%a,%d %b %Y %H:%M:%S %z").date()
-        >= episode.premiere_date.date()
-    ]
-    if len(bt4g_torrents) > 0:
-        return bt4g_torrents[0]
+    bt4g_raw_res = xmltodict.parse(bt4g_result.text)["rss"]["channel"]
+    if "item" in bt4g_raw_res:
+        bt4g_torrents = [
+            item["link"]
+            for item in xmltodict.parse(bt4g_result.text)["rss"]["channel"]["item"]
+            if "<br>Movie<br>" in item["description"]
+            and datetime.strptime(item["pubDate"], "%a,%d %b %Y %H:%M:%S %z").date()
+            >= episode.premiere_date.date()
+        ]
+        if len(bt4g_torrents) > 0:
+            return bt4g_torrents[0]
 
 
 def download_torrent(episode: BaseItemDto) -> None:
