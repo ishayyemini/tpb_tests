@@ -109,9 +109,11 @@ def get_valid_torrent(episode: BaseItemDto, suffix: str) -> Optional[str]:
     )
     bt4g_raw_res = xmltodict.parse(bt4g_result.text)["rss"]["channel"]
     if "item" in bt4g_raw_res:
+        if type(bt4g_raw_res["item"]) is dict:
+            bt4g_raw_res["item"] = [bt4g_raw_res["item"]]
         bt4g_torrents = [
             item["link"]
-            for item in xmltodict.parse(bt4g_result.text)["rss"]["channel"]["item"]
+            for item in bt4g_raw_res["item"]
             if "<br>Movie<br>" in item["description"]
             and datetime.strptime(item["pubDate"], "%a,%d %b %Y %H:%M:%S %z").date()
             >= episode.premiere_date.date()
