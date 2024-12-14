@@ -91,15 +91,15 @@ def get_valid_torrent(episode: BaseItemDto, suffix: str) -> Optional[str]:
     parsed_show_name = episode.series_name.replace("'", "")
     search_term = f"{parsed_show_name} S{str(episode.parent_index_number).zfill(2)}E{str(episode.index_number).zfill(2)} {suffix}"
 
-    tpb_torrents = [
-        torrent.magnetlink
-        for torrent in tpb.search(search_term)
-        if ":" in torrent.upload_date.split(" ")[1]
-        and torrent.upload_date.split(" ")[0] >= episode.premiere_date.strftime("%m-%d")
-        and (torrent.is_trusted or torrent.is_vip)
-    ]
-    if len(tpb_torrents) > 0:
-        return tpb_torrents[0]
+    # tpb_torrents = [
+    #     torrent.magnetlink
+    #     for torrent in tpb.search(search_term)
+    #     if ":" in torrent.upload_date.split(" ")[1]
+    #     and torrent.upload_date.split(" ")[0] >= episode.premiere_date.strftime("%m-%d")
+    #     and (torrent.is_trusted or torrent.is_vip)
+    # ]
+    # if len(tpb_torrents) > 0:
+    #     return tpb_torrents[0]
 
     bt4g_result = requests.get(
         f"{BT4G_SERVER}?{urllib.parse.urlencode({'q': search_term, 'page': 'rss'})}",
